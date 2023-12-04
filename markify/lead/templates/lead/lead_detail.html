@@ -1,0 +1,70 @@
+{%extends "core/base.html"%}
+
+{%block title%} {{lead.name}} {% endblock %}
+
+{%block content%}
+    <div class='py-6 px-6'>
+
+        <h1 class='text-xl mb-4'>{{lead.name}}</h1>
+
+        {%if lead.description%}
+            <p class="font-semibold mb-2">Description</p>
+            <p>{{lead.description}}</p>
+        
+        {% endif %}
+        
+        <p class="font-semibold mb-2 mt-2">Priority</p>
+        <p>{{lead.get_priority_display}}</p>
+        
+        <p class="font-semibold mb-2 mt-2">Status</p>
+        <p>{{lead.get_status_display}}</p>
+        
+        <p class="font-semibold mb-2 mt-2">Created By</p>
+        <p>{{lead.created_by}}</p>
+
+        <p class="font-semibold mb-2 mt-2">Created At</p>
+        <p>{{lead.created_at}}</p>
+        
+        <p class="font-semibold mb-2 mt-2">Modified At</p>
+        <p class="mb-8">{{lead.modified_at }}</p>
+
+        <form id="lead_delete_form"method="post" action="{%url 'leads:delete' lead.id%}">
+            {% csrf_token %}
+        </form>
+        <hr>
+            <a href = "#" onclick="document.getElementById('lead_delete_form').submit();" class="py-2 px-4 bg-red-500 text-white rounded-xl">Delete</a>
+            <a href = "{%url 'leads:convert' lead.id%}" class="py-2 text-xl/4 px-4 bg-blue-800 text-white rounded-xl">Convert to client</a>
+            <a href = "{%url 'leads:edit' lead.id%}" class="py-2 px-4 text-xl/4 bg-blue-500 text-white rounded-xl">Edit</a>
+            <a href="{%url 'leads:list' %}" class="py-2 px-4 text-xl/4 bg-blue-800 text-white rounded-xl">Back to leads</a>
+        <hr>
+
+        <hr class="my-4">
+
+        <h1 class = "text-xl mb-4 mt-6 text-semibold">Comments</h1>
+
+        <div class="space-y-4">
+            {%for comment in lead.comments.all%}
+                <div class="bg-gray-100 rounded-xl p-4">
+                    <p class="px-6 font-semibold ">{{comment.created_by}}</p>
+                    <p class="mb-2 px-6">{{comment.content}}</p>
+                    <p class="text-xs px-6 text-gray-500 mb-4">{{comment.created_at}}</p>
+            {%endfor%}
+        </div>
+
+
+        <form method='post' class="mt-4" action='{%url "leads:add_comment" lead.id%}'>
+            {%csrf_token%}
+
+            {{form.as_p}}
+
+            <button class="py-2 px-4 bg-blue-800 text-white rounded-xl">Submit</button>
+
+        </form>
+
+        
+
+    
+    </div>
+
+
+{%endblock%}            

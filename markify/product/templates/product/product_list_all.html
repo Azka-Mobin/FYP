@@ -1,0 +1,31 @@
+{%extends "core/base.html"%}
+
+{%block title%}Product List{% endblock %}
+
+{%block content%}
+    <div class='py-6 px-6'>
+
+        <h1 class='text-xl mb-4'>Browse Products</h1>
+        {%if user.is_authenticated%}
+        <a href='{%url "products:list"%}' class='text-white inline-block py-4 px-6 bg-blue-500 rounded-xl'>Your Products</a>
+        {%endif%}
+        {%if products%}
+            <div class='flex justify-between mt-6 mb-2'>
+                <p class='py-4 px-2 bg-gray-200 font-semibold w-full'>Name</p>
+                <p class='py-4 px-2 bg-gray-200 font-semibold w-full'>Price</p>
+                <p class='py-4 px-2 bg-gray-200 font-semibold w-full'>Team</p>
+            </div>
+            {%for product in products%}
+                <div class='flex justify-between'>
+                            <p class='py-2 px-2 w-full {% cycle "bg-gray-100" "" %}'> 
+                                <a href = '{%url "products:detail" product.id%}'>{{product.name}}</a>
+                            </p>
+                        <p class='py-2 px-2 w-full {% cycle "bg-gray-100" "" %}'> {{product.price}}</p>
+                        <p class='py-2 px-2 w-full {% cycle "bg-gray-100" "" %}'> {{product.team}}</p>
+                </div>    
+                    
+            {% endfor %}
+        {%else%}
+        <p class='mb-4 mt-4 px-2 w-full {% cycle "bg-gray-100" "" %}'>There are no products in the database yet.......</p>
+        {%endif%}   
+{%endblock%}        

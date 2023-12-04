@@ -1,0 +1,38 @@
+{%extends "core/base.html"%}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+
+<header class="bg-blue-500 text-white p-4">
+    <h1 class="text-4xl">About Markify</h1>
+</header>
+
+<main class="container mx-auto mt-4 p-4">
+    <section id="mission">
+        <h2 class="text-xl font-semibold mb-4">Our Mission</h2>
+        <p class="text-md rounded-xl bg-gray-200 shadow px-2 py-2">
+            Markify is more than just a website. It's the final project created by SayabiDevs Team 9 for the Sayabidevs internship program. Our mission is to provide a comprehensive platform for managing leads, clients, products, and ads. We are dedicated to simplifying marketing and advertising efforts for businesses and individuals.
+        </p>
+    </section>
+
+    <section id="team" class="mt-6">
+        <h2 class="text-xl font-semibold mb-4">Our Team</h2>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="bg-white rounded-xl bg-gray-200 p-4 shadow">
+                <h3 class="text-md mb-2">Syed Ammar Asim</h3>
+                <h3 class="text-md mb-2">Syed Samaha Batool Rizvi</h3>
+                <h3 class="text-md mb-2">Kashif Ali</h3>
+                <h3 class="text-md mb-2">Muhammad Shoaib</h3>
+                <h3 class="text-md mb-2">Syed Muhammad Hassan Rashid </h3>
+            </div>
+            <div class="bg-gray-200 rounded-xl p-4 shadow">
+                <h3 class="text-lg mb-2">Bilal Ahmer</h3>
+                <p class="text-gray-600">Special Thanks to the Founder of Sayabidevs</p>
+            </div>
+            <!-- You can add more team members or acknowledgments as needed -->
+        </div>
+    </section>
+</main>
+</body>
+{%endblock%}

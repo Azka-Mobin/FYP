@@ -1,0 +1,36 @@
+{%extends "core/base.html"%}
+
+{%block title%}Dashboard{% endblock %}
+
+{%block content%}
+    <div class='py-6 px-6'>
+
+        <h1 class='text-xl mb-6'>Dashboard</h1>
+        
+        <hr class = 'mt-2 mb-2'>
+        <div class="flex space-x-4">
+            <div class="px-4 py-4 w-1/2 bg-gray-100 rounded-lg leads">
+                <h2 class='text-lg mb-4 font-bold'>Newest Products</h2>
+                {%for product in products%}
+                <div class="lead mb-2">
+                   <h3 class="font-semibold">{{product.name}}</h3> 
+                   <p class="text-xs">Price: {{product.price}}</p>
+                   <a href="{%url 'products:detail' product.pk%}" class="text-xs mb-3">Read more</a>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="px-4 py-4 w-1/2 bg-gray-100 rounded-lg clients">
+                <h2 class='text-lg mb-4 font-bold'>Top Advertisements</h2>
+                {%for ad in ads%}
+                <div class="ad">
+                    <h3 class="font-semibold">{{ad.title}}</h3> 
+                    <p class="text-xs">Activity: {{ad.activity}} have seen this ad.</p>
+                    <a href="{%url 'ads:detail' ad.pk%}" class="text-xs">Read more</a>
+                 </div>
+                {% endfor %}
+            </div>        
+        
+        </div>
+        
+    </div>
+{%endblock%}

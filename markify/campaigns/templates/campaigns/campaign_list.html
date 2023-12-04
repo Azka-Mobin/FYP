@@ -1,0 +1,31 @@
+{%extends "core/base.html"%}
+
+{%block title%}Campaign List{% endblock %}
+
+{%block content%}
+    <div class='py-6 px-6'>
+
+        <h1 class='text-xl mb-4'>Browse Campaigns</h1>
+        {%if campaigns%}
+            <div class='flex justify-between mt-6 mb-2'>
+                <p class='py-4 px-2 bg-gray-200 font-semibold w-full'>Title</p>
+                <p class='py-4 px-2 bg-gray-200 font-semibold w-full'>Action</p>
+                <p class='py-4 px-2 bg-gray-200 font-semibold w-full'>Start Date</p>
+                <p class='py-4 px-2 bg-gray-200 font-semibold w-full'>End Date</p>
+            </div>
+            {%for campaign in campaigns%}
+                <div class='flex justify-between'>
+                        <p class='py-2 px-2 w-full {% cycle "bg-gray-100" "" %}'>{{campaign.title}}</p>
+                            <p class='py-2 px-2 w-full {% cycle "bg-gray-100" "" %}'> 
+                                
+                                <a href = '{%url "campaigns:send_email" campaign.id%}' class="text-blue-500">Send Emails</a>
+                            </p>
+                        <p class='py-2 px-2 w-full {% cycle "bg-gray-100" "" %}'> {{campaign.start_date}}</p>
+                        <p class='py-2 px-2 w-full {% cycle "bg-gray-100" "" %}'> {{campaign.end_date}}</p>
+                </div>    
+                    
+            {% endfor %}
+        {%else%}
+        <p class='mb-4 mt-4 px-2 w-full {% cycle "bg-gray-100" "" %}'>There are no campaigns in the database yet.......</p>
+        {%endif%}   
+{%endblock%}        

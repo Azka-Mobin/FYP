@@ -1,0 +1,30 @@
+{%extends "core/base.html"%}
+
+{%block title%}Teams{% endblock %}
+
+{%block content%}
+    <div class='py-6 px-6'>
+
+    
+        <h1 class='text-xl mb-4 font-semibold'>Teams</h1>
+        
+        <div class="grid grid-cols-4 gap-4">
+            <a href='{%url "teams:create"%}' class='text-white font-bold text-xl inline-block py-4 px-6 bg-blue-500 rounded-xl'>Create Team</a>
+            {%for team in teams%}
+                
+                    
+                    {%if team == active_team%}
+                        <div class="bg-gray-200 rounded-xl py-6 px-6 p-6">
+                        <h2 class = "text-xl  font-semibold">{{team.name}}</h2>
+                        <a href="{%url 'teams:detail' team.id%}" class=" bg-blue-700 text-white inline-block py-2 px-4 mt-2 rounded-xl">Team Details</a>
+                        </div>
+                    {%else%}
+                        <div class="bg-gray-100 rounded-xl py-6 px-6 p-6">
+                        <h2 class = "text-xl font-semibold">{{team.name}}</h2>
+                        <a href="{%url 'teams:activate' team.id%}" class="bg-blue-500  text-white inline-block py-2 px-4 mt-2 rounded-xl">Activate Team</a>
+                        </div>
+                    {%endif%}
+            {%endfor%}    
+        </div>   
+    </div>
+{%endblock%}        

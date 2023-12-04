@@ -1,0 +1,65 @@
+{%extends "core/base.html"%}
+
+{%block title%} {{client.name}} {% endblock %}
+
+{%block content%}
+    <div class='py-6 px-6'>
+
+        <h1 class='text-xl mb-4'>{{client.name}}</h1>
+
+        <p class="font-semibold mb-2 mt-2">Email</p>
+        <p>{{client.email}}</p>
+
+        {%if client.description%}
+            <p class="font-semibold mb-2">Description</p>
+            <p>{{client.description}}</p>
+        
+        {% endif %}
+        
+        
+        <p class="font-semibold mb-2 mt-2">Created At</p>
+        <p>{{client.created_at}}</p>
+        
+        <p class="font-semibold mb-2 mt-2">Modified At</p>
+        <p class="mb-8">{{client.modified_at }}</p>
+
+        <hr>
+            <a href = "{%url 'clients:delete' client.id%}" class="py-3 px-4 bg-red-500 text-white rounded-xl">Delete</a>
+            <a href = "{%url 'clients:edit' client.id%}" class="py-3 px-4 bg-blue-500 text-white rounded-xl">Edit</a>
+            <a href="{%url 'clients:list' %}" class="py-3 px-4 bg-blue-800 text-white rounded-xl">Back to clients</a>
+        <hr>
+
+
+        <hr class="my-4">
+
+        <h1 class = "text-xl mb-4 mt-6 text-semibold">Comments</h1>
+
+        <div class="space-y-4">
+            <div class="bg-gray-100 rounded-xl p-4">
+            {%for comment in client.comments.all%}
+                
+                    {%if client.created_by is None%}
+                        <p class="px-6 font-semibold ">Anonymous</p>
+                    {%else%}
+                        <p class="px-6 font-semibold ">{{comment.created_by}}</p>
+                    {%endif%}    
+                    <p class="mb-2 px-6">{{comment.content}}</p>
+                    <p class="text-xs px-6 text-gray-500 mb-4">{{comment.created_at}}</p>
+            {%endfor%}
+        </div>
+
+
+        <form method='post' class="mt-4" action='{%url "clients:add_comment" client.id%}'>
+            {%csrf_token%}
+
+            {{form.as_p}}
+
+            <button class="py-2 px-4 bg-blue-800 text-white rounded-xl">Submit</button>
+
+        </form>
+
+    
+    </div>
+
+
+{%endblock%}            

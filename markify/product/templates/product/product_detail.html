@@ -1,0 +1,39 @@
+{%extends "core/base.html"%}
+
+{%block title%} {{product.name}} {% endblock %}
+
+{%block content%}
+    <div class='py-6 px-6'>
+
+        <h1 class='text-xl mb-4'>{{product.name}}</h1>
+        <p class="font-semibold mb-2 mt-2">Price</p>
+        <p class="mb-2">{{product.price}}</p>
+
+        {%if product.description%}
+            <p class="font-semibold mb-2">Description</p>
+            <p class="mb-2">{{product.description}}</p>
+        
+        {% endif %}
+
+        <p class="font-semibold mb-2 mt-2">Created At</p>
+        <p>{{product.created_at}}</p>
+        
+        <p class="font-semibold mb-2 mt-2">Modified At</p>
+        <p class="mb-8">{{product.modified_at }}</p>
+
+        <hr>
+            {%if not request.user.is_authenticated%}
+            <a href="#" class="py-3 px-4 bg-blue-800 text-white rounded-xl">Buy Now</a>
+            {%else%}
+                {%if is_owner%}
+                    <a href = "{%url 'products:delete' product.id%}" class="py-3 px-4 bg-red-500 text-white rounded-xl">Delete</a>
+                    <a href = "{%url 'products:edit' product.id%}" class="py-3 px-4 bg-blue-500 text-white rounded-xl">Edit</a>
+                    <a href="{%url 'products:generate_ad' product.id%}" class="py-3 px-4 bg-blue-800 text-white rounded-xl">Generate Advertisement</a>
+                {%endif%}
+            {%endif%}    
+            <a href="{%url 'products:list' %}" class="py-3 px-4 bg-blue-800 text-white rounded-xl">Back to products</a>
+        <hr>
+
+
+        <hr class="my-4">        
+{%endblock%}        

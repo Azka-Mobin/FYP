@@ -1,0 +1,52 @@
+{%extends "core/base.html"%}
+
+{%block title%}{{team.name}}{% endblock %}
+
+{%block content%}
+    <div class='py-6 px-6'>
+
+        <a href="{% url 'teams:list'%}" class='text-white mb-6 inline-block py-3 px-4 bg-blue-500 rounded-xl'>Switch Team</a> 
+
+        <h1 class='text-xl mb-4'>{{team.name}}</h1>
+
+        <p class="mb-4"> <strong>Team Owner</strong> {{team.created_by}} </p>
+
+        <hr class="my-6">
+
+        <h2 class='font-semibold mt-4'>Team Members</h2>
+
+
+        {%for member in team.members.all%}
+            <p>{{member.username}}</p>
+        {%endfor%}
+        <hr class='mt-6'>
+        {%if not is_member%}
+        <a href = "{%url 'teams:join' team.id %}" class = 'mt-6 text-white py-2 px-6 bg-blue-500 rounded-xl'>Join Team</a>
+        {%endif%}
+        {%if team.created_by == request.user%}
+        {%if team_requests%}
+            <div class='flex justify-between mt-6 mb-2'>
+                <p class='py-4 px-2 bg-gray-200 font-semibold w-full'>User</p>
+                <p class='py-4 px-2 bg-gray-200 font-semibold w-full'>Accept</p>
+                <p class='py-4 px-2 bg-gray-200 font-semibold w-full'>Decline</p>
+            </div>
+            {%for team_request in team_requests%}
+                <div class='flex justify-between'>
+                    <p class='py-2 px-2 w-full {% cycle "bg-gray-100" "" %}'> {{team_request.user.username}}</p>
+                    <p class='py-2 w-full {% cycle "bg-gray-100" "" %}'> 
+                            <a href = "{%url 'teams:accept' team.id team_request.id%}" class = 'text-white py-2 px-4 bg-blue-500 rounded-xl'>Accept</a>
+                    </p>
+                    <p class='py-2 w-full {% cycle "bg-gray-100" "" %}'> 
+                        <a href = "{%url 'teams:decline' team.id team_request.id%}" class = 'text-white py-2 px-4 bg-blue-500 rounded-xl'>Decline</a>
+                    </p>
+                </div>    
+                    
+            {% endfor %}
+        {%else%}
+        <p class='mb-4 mt-4 px-2 w-full {% cycle "bg-gray-100" "" %}'>There are no requests.......</p>
+        {%endif%}   
+        <hr class = "mt-4 mb-2">
+        <a href = "{%url 'teams:edit' team.id %}" class = 'mt-6 text-white py-2 px-6 bg-blue-500 rounded-xl'>Edit</a>
+        {%endif%}
+    </div>
+{%endblock%}       

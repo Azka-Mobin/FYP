@@ -1,0 +1,15 @@
+{%extends "core/base.html"%}
+
+{%block title%}Add Advertisement to Campaign{% endblock %}
+
+{%block content%}
+    <div class='py-6 px-6'>
+
+        <h1 class='text-xl mb-4'>Add Advertisement to Campaign</h1>
+        <form method="post" action="{% url 'ads:add-to-campaign' ad.pk %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" class="py-4 px-8 bg-blue-500 text-white rounded-xl" value="Submit">
+        </form>   
+    </div>
+{%endblock%}

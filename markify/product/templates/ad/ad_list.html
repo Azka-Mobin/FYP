@@ -1,0 +1,27 @@
+{%extends "core/base.html"%}
+
+{%block title%}Advertisement List{% endblock %}
+
+{%block content%}
+    <div class='py-6 px-6'>
+
+        <h1 class='text-xl mb-4'>Browse Ads</h1>
+
+        {%if ads%}
+            <div class='flex justify-between mt-6 mb-2'>
+                <p class='py-4 px-2 bg-gray-200 font-semibold w-full'>Title</p>
+                <p class='py-4 px-2 bg-gray-200 font-semibold w-full'>Product</p>
+            </div>
+            {%for ad in ads%}
+                <div class='flex justify-between'>
+                        <p class='py-2 px-2 w-full {% cycle "bg-gray-100" "" %}'> 
+                            <a href = '{%url "ads:detail" ad.id%}'>{{ad.title}}</a>
+                        </p>
+                        <p class='py-2 px-2 w-full {% cycle "bg-gray-100" "" %}'> {{ad.product}}</p>
+                </div>    
+                    
+            {% endfor %}
+        {%else%}
+        <p class='mb-4 mt-4 px-2 w-full {% cycle "bg-gray-100" "" %}'>There are no ads in the database yet.......</p>
+        {%endif%}   
+{%endblock%}        

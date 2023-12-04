@@ -1,0 +1,61 @@
+{%extends "core/base.html"%}
+{%load social_share%}
+
+{%block title%} {{ad.title}} {% endblock %}
+
+{%block content%}
+    <div class='py-6 px-6'>
+
+        <h1 class='text-xl mb-4'>{{ad.title}}</h1>
+        
+        <p class="font-semibold mb-2 mt-2">Product</p>
+        <p>{{ad.product.name}}</p>        
+
+        {%if ad.description%}
+            <p class="font-semibold mb-2">Description</p>
+            <p class="mb-2">{{ad.description}}</p>
+        
+        {% endif %}
+
+        <p class="font-semibold mb-2 mt-2">Activity</p>
+        <p>{{ad.activity}} people viewed this ad</p>  
+        
+        <p class="font-semibold mb-2 mt-2">Campaign</p>
+        {%if ad.campaign%}    
+            <p>{{ad.campaign.title}}</p>  
+        {%else%}
+            <p>Not in a campaign</p>  
+        {%endif%}
+        <p class="font-semibold mb-2 mt-2">Created At</p>
+        <p>{{ad.created_at}}</p>
+        
+        <p class="font-semibold mb-2 mt-2">Modified At</p>
+        <p>{{ad.modified_at }}</p>
+
+        <p class="font-semibold mb-2 mt-2">Product Link</p>
+        <a href = "{%url 'products:detail' ad.product.id%}" class = "mb-8 text-blue-500">{{ad.product.name}}</a> 
+        <hr class = "mt-4">
+            {%if is_owner%}
+                <a href = "{%url 'ads:delete' ad.id%}" class="py-3 px-4 bg-red-500 text-white rounded-xl">Delete</a>
+                <div>
+                    <h2 class= "mt-4 mb-2 space-x-8 w-1/2 py-3 px-4 bg-gray-200 text-blue-500 rounded-xl">
+                        {% post_to_twitter ad.title object_or_url%} 
+                    </h2>    
+                    <h2 class= "mb-2 space-x-8 w-1/2 py-3 px-4 bg-gray-200 text-blue-500 rounded-xl">
+                        {% post_to_facebook ad.title object_or_url%}
+                    </h2>    
+                </div>    
+                <hr class = "mt-4">
+                <a href="{%url 'ads:add-to-campaign' ad.id %}" class="py-3 px-4 bg-blue-800 text-white rounded-xl">Add to Campaign</a>    
+            {%endif %}    
+        
+        <hr class = "mt-6">
+            {%if not request.user.is_authenticated%}    
+            <a href = "{%url 'campaigns:campaign-client' ad.id%}" class="py-3 px-4 bg-blue-800 text-white rounded-xl">I am Interested</a>
+            {%endif%}
+            <a href="{%url 'ads:list' %}" class="py-3 px-4 bg-blue-800 text-white rounded-xl">Back to ads</a>
+        <hr>
+
+
+        <hr class="my-4">        
+{%endblock%}        
